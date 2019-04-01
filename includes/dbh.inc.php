@@ -7,7 +7,7 @@
 $servername = "localhost";
 $dBUsername = "root";
 $dBPassword ="";
-$dBName = "library_db";
+$dBName = "librarydb";
 
 $connect = mysqli_connect($servername, $dBUsername, $dBPassword, $dBName);
 
