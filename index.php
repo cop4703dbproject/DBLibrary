@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
+  <?php
+    session_start();
+  ?>
+
 <head>
 
   <meta charset="utf-8">
@@ -54,23 +58,31 @@
         <div class="col-lg-8 mx-auto">
           <h2>Login</h2>
           <p class="lead">Enter email address and password to login</p>
-          <form action="main.html">
-            <div class="form-group">
-              <label for="email">Email address:</label>
-              <input type="email" class="form-control" id="email">
-            </div>
-            <div class="form-group">
-              <label for="pwd">Password:</label>
-              <input type="password" class="form-control" id="pwd">
-            </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-          </form>
+            <?php //Login Script
+             if(isset($_SESSION['StudentEmail'])){
+                 echo'<div>Logged init</div>';
+             }
+             else{
+                echo'<form action="includes/login.inc.php" method="post">
+                    <div class="form-group">
+                      <label>Email address:</label>
+                     <input type="email" class="form-control" id="email" name="studentemail">
+                    </div>
+
+                     <div class="form-group">
+                       <label for="pwd">Password:</label>
+                      <input type="password" class="form-control" id="pwd" name="pwd">
+                     </div>
+                     <button type="submit" name="login-submit" class="btn btn-primary">Login</button>
+                    </form>';
+                 }
+            ?>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="contact" class="bg-light">
+  <section id="contact">
     <div class="container">
       <div class="row">
         <div class="col-lg-7 mx-auto">
@@ -102,5 +114,4 @@
   <script src="js/scrolling-nav.js"></script>
 
 </body>
-
 </html>
