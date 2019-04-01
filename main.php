@@ -51,17 +51,25 @@
     </div>
   </header>
 
-  <section id="books">
+    
+ <section id="books">
     <div class="container">
       <div class="row">
         <div class="col-lg-8 mx-auto">
           <h2>Avaliable books</h2>
-          <ul>
-            <li>Book 1</li>
-            <li>Book 2</li>
-            <li>Book 3</li>
-            <li>Book 4</li>
-          </ul>
+            
+            <?php //Display Available Books
+            require 'includes/dbh.inc.php';
+            $sql = "SELECT * FROM Books WHERE Availability=1";
+            $result = mysqli_query($connect,$sql) or die("Bad Query: $sql");
+            
+             echo"<ul>";
+                while($row = mysqli_fetch_assoc($result)){
+                echo"<li>{$row['Title']}</li>";
+                }
+              echo"</ul>";
+              ?>
+            
         </div>
       </div>
     </div>
@@ -69,18 +77,27 @@
       <a class="btn btn-primary btn-large js-scroll-trigger" href="#rentals">View Rentals</a>
     </div>
   </section>
+    
 
   <section id="rentals" class="bg-light">
     <div class="container">
       <div class="row">
         <div class="col-lg-8 mx-auto">
           <h2>Current Rentals</h2>
-          <ul>
-            <li>Book 1</li>
-            <li>Book 2</li>
-            <li>Book 3</li>
-            <li>Book 4</li>
-          </ul>
+            
+        <?php //Display Rented Books
+            require 'includes/dbh.inc.php';
+            $sql = "SELECT * FROM Books WHERE Availability=0";
+            $result = mysqli_query($connect,$sql) or die("Bad Query: $sql");
+            
+            
+              echo"<ul>";
+            while($row = mysqli_fetch_assoc($result)){
+                echo"<li>{$row['Title']}</li>";
+            }
+              echo"</ul>";
+            ?>
+            
         </div>
       </div>
     </div>
