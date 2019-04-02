@@ -58,17 +58,40 @@
         <div class="col-lg-8 mx-auto">
           <h2>Avaliable books</h2>
             
-            <?php //Display Available Books
-            require 'includes/dbh.inc.php';
-            $sql = "SELECT * FROM Books WHERE Availability=1";
-            $result = mysqli_query($connect,$sql) or die("Bad Query: $sql");
-            
-             echo"<ul>";
-                while($row = mysqli_fetch_assoc($result)){
-                echo"<li>{$row['Title']}</li>";
-                }
-              echo"</ul>";
-              ?>
+
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Cover</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Year</th>
+                    <th scope="col">Genre</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+
+                  <?php //Display Available Books
+                  require 'includes/dbh.inc.php';
+                  $sql = "SELECT * FROM Books WHERE Availability=1";
+                  $result = mysqli_query($connect,$sql) or die("Bad Query: $sql");
+                  
+                   
+                    
+                  while($row = mysqli_fetch_assoc($result)){
+                    echo"<tr class='clickable-row' data-href='book.html'>";
+                      echo"<td><img src='images/hitchhikersguide.jpeg' class='small-img'></td>";
+                      echo"<td>{$row['Title']}</td>";
+                      echo"<td>{$row['Author']}</td>";
+                      echo"<td>{$row['Year']}</td>";
+                      echo"<td>{$row['Genre']}</td>";
+                    echo"</tr>";
+                  }
+                  ?>
+
+                </tbody>
+              </table>
             
         </div>
       </div>
@@ -84,20 +107,39 @@
       <div class="row">
         <div class="col-lg-8 mx-auto">
           <h2>Current Rentals</h2>
-            
-        <?php //Display Rented Books
-            require 'includes/dbh.inc.php';
-            $sql = "SELECT * FROM Books WHERE Availability=0";
-            $result = mysqli_query($connect,$sql) or die("Bad Query: $sql");
-            
-            
-              echo"<ul>";
-            while($row = mysqli_fetch_assoc($result)){
-                echo"<li>{$row['Title']}</li>";
-            }
-              echo"</ul>";
-            ?>
-            
+
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Cover</th>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Year</th>
+                <th scope="col">Genre</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <?php //Display Available Books
+              require 'includes/dbh.inc.php';
+              $sql = "SELECT * FROM Books WHERE Availability=0";
+              $result = mysqli_query($connect,$sql) or die("Bad Query: $sql");
+              
+               
+                
+              while($row = mysqli_fetch_assoc($result)){
+                echo"<tr class='clickable-row' data-href='book.html'>";
+                  echo"<td><img src='images/hitchhikersguide.jpeg' class='small-img'></td>";
+                  echo"<td>{$row['Title']}</td>";
+                  echo"<td>{$row['Author']}</td>";
+                  echo"<td>{$row['Year']}</td>";
+                  echo"<td>{$row['Genre']}</td>";
+                echo"</tr>";
+              }
+              ?>
+
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -135,6 +177,14 @@
 
   <!-- Custom JavaScript for this theme -->
   <script src="js/scrolling-nav.js"></script>
+
+  <script>
+    jQuery(document).ready(function($) {
+        $(".clickable-row").click(function() {
+            window.location = $(this).data("href");
+        });
+    });
+  </script>
 
 </body>
 
