@@ -56,43 +56,37 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 mx-auto">
-          <h2>Avaliable books</h2>
-            
+        <h2>Avaliable books</h2>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Cover</th>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Year</th>
+                <th scope="col">Genre</th>
+              </tr>
+            </thead>
+            <tbody>
 
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">Cover</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Author</th>
-                    <th scope="col">Year</th>
-                    <th scope="col">Genre</th>
-                  </tr>
-                </thead>
-                <tbody>
+              <?php //Display Available Books
+              require 'includes/dbh.inc.php';
+              $sql = "SELECT * FROM Books WHERE Availability=1";
+              $result = mysqli_query($connect,$sql) or die("Bad Query: $sql");
+                                  
+              while($row = mysqli_fetch_assoc($result)){
+                echo"<tr class='clickable-row' data-href='book.php?isbn={$row['ISBN']}'>";
+                  echo"<td><img src='{$row['Photo']}' class='small-img'></td>";
+                  echo"<td>{$row['Title']}</td>";
+                  echo"<td>{$row['Author']}</td>";
+                  echo"<td>{$row['Year']}</td>";
+                  echo"<td>{$row['Genre']}</td>";
+                echo"</tr>";
+              }
+              ?>
 
-
-                  <?php //Display Available Books
-                  require 'includes/dbh.inc.php';
-                  $sql = "SELECT * FROM Books WHERE Availability=1";
-                  $result = mysqli_query($connect,$sql) or die("Bad Query: $sql");
-                  
-                   
-                    
-                  while($row = mysqli_fetch_assoc($result)){
-                    echo"<tr class='clickable-row' data-href='book.html'>";
-                      echo"<td><img src='images/hitchhikersguide.jpeg' class='small-img'></td>";
-                      echo"<td>{$row['Title']}</td>";
-                      echo"<td>{$row['Author']}</td>";
-                      echo"<td>{$row['Year']}</td>";
-                      echo"<td>{$row['Genre']}</td>";
-                    echo"</tr>";
-                  }
-                  ?>
-
-                </tbody>
-              </table>
-            
+            </tbody>
+          </table>     
         </div>
       </div>
     </div>
@@ -124,12 +118,10 @@
               require 'includes/dbh.inc.php';
               $sql = "SELECT * FROM Books WHERE Availability=0";
               $result = mysqli_query($connect,$sql) or die("Bad Query: $sql");
-              
                
-                
               while($row = mysqli_fetch_assoc($result)){
-                echo"<tr class='clickable-row' data-href='book.html'>";
-                  echo"<td><img src='images/hitchhikersguide.jpeg' class='small-img'></td>";
+                echo"<tr class='clickable-row' data-href='book.php?isbn={$row['ISBN']}'>";
+                  echo"<td><img src='{$row['Photo']}' class='small-img '></td>";
                   echo"<td>{$row['Title']}</td>";
                   echo"<td>{$row['Author']}</td>";
                   echo"<td>{$row['Year']}</td>";

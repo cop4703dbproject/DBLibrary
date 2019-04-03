@@ -42,26 +42,34 @@
 
   <header class="bg-primary text-white">
     <div class="container text-center">
-      <h1>Hitchhikers Guide to the Galaxy</h1>
-      <p class="lead">Douglas Adams</p>
-      <img src="images/hitchhikersguide.jpeg" class="mx-auto d-block" alt="...">
-    </div>
-  </header>
+      <?php
 
-  <section id="info">
-    <div class="container">
-      <div class="row align-top">
-        <div class="col-lg-8 mx-auto">
-          <h2>Book Info</h2>
-          <p class="lead">Description</p>
-          <p>Seconds before Earth is demolished to make way for a galactic freeway, Arthur Dent is plucked off the planet by his friend Ford Prefect, a researcher for the revised edition of The Hitchhiker’s Guide to the Galaxy who, for the last fifteen years, has been posing as an out-of-work actor.<br>
-          Together, this dynamic pair began a journey through space aided by a galaxyful of fellow travelers: Zaphod Beeblebrox—the two-headed, three-armed ex-hippie and totally out-to-lunch president of the galaxy; Trillian (formerly Tricia McMillan), Zaphod’s girlfriend, whom Arthur tried to pick up at a cocktail party once upon a time zone; Marvin, a paranoid, brilliant, and chronically depressed robot; and Veet Voojagig, a former graduate student obsessed with the disappearance of all the ballpoint pens he’s bought over the years.<br>
-          Where are these pens? Why are we born? Why do we die? For all the answers, stick your thumb to the stars!
-          </p>
-          <p class="lead">Pages</p>
-          <p>384</p>
-          <p class="lead">Year Published</p>
-          <p>1979</p>
+      $isbn = $_GET['isbn'];
+
+      require 'includes/dbh.inc.php';
+      $sql = "SELECT * FROM Books WHERE ISBN=$isbn";
+      $result = mysqli_query($connect,$sql) or die("Bad Query: $sql");
+
+      $row = mysqli_fetch_assoc($result);
+
+      echo "<h1>{$row['Title']}</h1>";
+      echo "<p class='lead'>{$row['Author']}</p>";
+      echo"<img src='{$row['Photo']}' class='mx-auto d-block' alt='...'>";
+    echo"</div>";
+  echo"</header>";
+
+  echo"<section id='info'>";
+    echo"<div class='container'>";
+      echo"<div class='row align-top'>";
+        echo"<div class='col-lg-8 mx-auto'>";
+          echo"<h2>Book Info</h2>";
+          echo"<p class='lead'>Description</p>";
+          echo"<p>{$row['Descr']}</p>";
+          echo"<p class='lead'>Genre</p>";
+          echo"<p>{$row['Genre']}</p>";
+          echo"<p class='lead'>Date Published</p>";
+          echo"<p>{$row['Year']}</p>";
+          ?>
         </div>
       </div>
     </div>
