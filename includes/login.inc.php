@@ -34,6 +34,7 @@ if (isset($_POST['login-submit'])){
                 else if($pwd == $row['Password'] /*true*/){
                     session_start();
                     $_SESSION['StudentEmail'] = $row['Email'];
+                    $_SESSION["StudentID"] = $row['StudentID'];
                     
                     header("Location: ../main.php?login=success");
                     exit(); 

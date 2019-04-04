@@ -18,6 +18,9 @@ section {
 }
 
 .btn-large {
+  color: #fff;
+  background-color: #f4623a;
+  border-color: #f4623a;
   padding: 1rem 2rem;
   font-size: 0.9rem;
   font-weight: 700;

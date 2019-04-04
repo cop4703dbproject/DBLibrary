@@ -47,7 +47,7 @@
       $isbn = $_GET['isbn'];
 
       require 'includes/dbh.inc.php';
-      $sql = "SELECT * FROM Books WHERE ISBN=$isbn";
+      $sql = "SELECT * FROM Books WHERE ISBN='$isbn'";
       $result = mysqli_query($connect,$sql) or die("Bad Query: $sql");
 
       $row = mysqli_fetch_assoc($result);
@@ -69,12 +69,16 @@
           echo"<p>{$row['Genre']}</p>";
           echo"<p class='lead'>Date Published</p>";
           echo"<p>{$row['Year']}</p>";
-          ?>
-        </div>
-      </div>
-    </div>
-    <div class="container text-center">
-      <a class="btn btn-primary btn-large js-scroll-trigger" href="main.html">Rent Book</a>
+          
+        echo"</div>";
+      echo"</div>";
+    echo"</div>";
+    echo"<div class='container text-center'>";
+      echo"<form action='includes/rent.inc.php' method='post'>";
+        echo"<input type='hidden' value={$isbn} id='isbn' name='isbn'>";
+        echo"<button type='submit' name='rent-submit' class='btn btn-large'>Rent</button>";
+      echo"</form>";
+      ?>
     </div>
   </section>
 

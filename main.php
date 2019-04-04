@@ -116,7 +116,9 @@
 
               <?php //Display Available Books
               require 'includes/dbh.inc.php';
-              $sql = "SELECT * FROM Books WHERE Availability=0";
+              session_start();
+              $student_id = $_SESSION["StudentID"];
+              $sql = "SELECT * FROM Books WHERE ISBN IN (SELECT ISBN FROM Rents WHERE StudentID = $student_id)";
               $result = mysqli_query($connect,$sql) or die("Bad Query: $sql");
                
               while($row = mysqli_fetch_assoc($result)){
