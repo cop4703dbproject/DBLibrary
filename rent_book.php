@@ -14,7 +14,7 @@
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="css/scrolling-nav.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
 
 </head>
 
@@ -30,10 +30,13 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="main.html">Home</a>
+            <a class="nav-link" href="main.php">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#info">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="includes/logout.inc.php">Logout</a>
           </li>
         </ul>
       </div>
@@ -76,7 +79,7 @@
     echo"<div class='container text-center'>";
       echo"<form action='includes/rent.inc.php' method='post'>";
         echo"<input type='hidden' value={$isbn} id='isbn' name='isbn'>";
-        echo"<button type='submit' name='rent-submit' class='btn btn-large'>Rent</button>";
+        echo"<button type='submit' name='rent-submit' class='btn btn-large'>Rent Book</button>";
       echo"</form>";
       ?>
     </div>

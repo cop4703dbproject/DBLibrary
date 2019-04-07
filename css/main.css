@@ -1,8 +1,3 @@
-/*!
- * Start Bootstrap - Scrolling Nav (https://startbootstrap.com/template-overviews/scrolling-nav)
- * Copyright 2013-2019 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-scrolling-nav/blob/master/LICENSE)
- */
 header {
   padding: 150px 0 100px;
 }
@@ -11,11 +6,6 @@ section {
   padding: 150px 0;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #f4623a;
-  border-color: #f4623a;
-}
 
 .btn-large {
   color: #fff;
@@ -27,6 +17,15 @@ section {
   text-transform: uppercase;
   border: none;
   border-radius: 10rem;
+}
+
+.btn-table {
+  margin-top: 100px;
+}
+
+.btn-selector {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .clickableRow {

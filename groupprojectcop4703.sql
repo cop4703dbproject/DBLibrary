@@ -47,10 +47,10 @@ INSERT INTO Books
 VALUES ('9788497571838','Murder on the Orient Express','Agatha Christie', '1934-01-01','Crime', 'One of the greatest crime novels by the famed author Agatha Christie', 1, 'images/Murder_on_the_Orient_Express.jpg');
 
 INSERT INTO Books 
-VALUES ('9780061917707','The Lord of the Rings','J. R. R. Tolkein', '1955-10-20','Fantasy', 'A high fantasy epic that inspired countless other fantasy works.', 0, 'images/The_Lord_of_the_Rings.jpg');
+VALUES ('9780061917707','The Lord of the Rings','J. R. R. Tolkein', '1955-10-20','Fantasy', 'A high fantasy epic that inspired countless other fantasy works.', 1, 'images/The_Lord_of_the_Rings.jpg');
 
 INSERT INTO Books 
-VALUES ('9781470106324','The Hunger Games','Suzanne Collins', '2008-09-14','Adventure', 'A Young Adult Dystopian Adventure novel where teenagers are placed into a killing game.', 0, 'images/The_Hunger_Games.jpg');
+VALUES ('9781470106324','The Hunger Games','Suzanne Collins', '2008-09-14','Adventure', 'A Young Adult Dystopian Adventure novel where teenagers are placed into a killing game.', 1, 'images/The_Hunger_Games.jpg');
 
 INSERT INTO Books 
 VALUES ('9780006540106','The Once and Future King','T. H. White', '1958-01-01','Fantasy', 'The story of King Arther and the round table.', 1, 'images/The_Once_and_Future_King.jpg');
@@ -68,13 +68,13 @@ INSERT INTO Student
 VALUES ('4444','Quentin Tarantino','777 LA Circle','4545454545','quentint@email.com','pulpfiction');
 
 INSERT INTO Rents
-VALUES ('2222','9781438501734','2019-02-14','2019-03-5');
+VALUES ('1234','9781438501734','2019-02-14','2019-03-5');
 
 INSERT INTO Rents
-VALUES ('2222','9783036991276','2019-02-14','2019-03-5');
+VALUES ('1234','9783036991276','2019-02-14','2019-03-5');
 
 INSERT INTO Rents
-VALUES ('4444','9781899888221','2019-03-01','2019-03-22');
+VALUES ('1234','9781899888221','2019-03-01','2019-03-22');
 
 
 

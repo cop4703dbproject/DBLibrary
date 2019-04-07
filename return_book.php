@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <?php
-    session_start();
-  ?>
-
 <head>
 
   <meta charset="utf-8">
@@ -17,6 +13,7 @@
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+  <!-- Custom styles for this template -->
   <link href="css/main.css" rel="stylesheet">
 
 </head>
@@ -33,10 +30,13 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#login">Login</a>
+            <a class="nav-link" href="main.php">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            <a class="nav-link js-scroll-trigger" href="#info">Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="includes/logout.inc.php">Logout</a>
           </li>
         </ul>
       </div>
@@ -45,54 +45,45 @@
 
   <header class="bg-primary text-white">
     <div class="container text-center">
-      <h1>Welcome to DB Library</h1>
-      <p class="lead">The best library ever</p>
-      <a class="btn btn-primary btn-large js-scroll-trigger" href="#login">Login</a>
-    </div>
-  </header>
+      <?php
 
-  <section id="login">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 mx-auto">
-          <h2>Login</h2>
-          <p class="lead">Enter email address and password to login</p>
-            <?php //Login Script
-             if(isset($_SESSION['StudentEmail'])){
-                 echo'<div>Logged init</div>';
-             }
-             else{
-                echo'<form action="includes/login.inc.php" method="post">
-                    <div class="form-group">
-                      <label>Email address:</label>
-                     <input type="email" class="form-control" id="email" name="studentemail">
-                    </div>
+      $isbn = $_GET['isbn'];
 
-                     <div class="form-group">
-                       <label for="pwd">Password:</label>
-                      <input type="password" class="form-control" id="pwd" name="pwd">
-                     </div>
-                     <button type="submit" name="login-submit" class="btn btn-primary">Login</button>
-                    </form>';
-                 }
-            ?>
-        </div>
-      </div>
-    </div>
-  </section>
+      require 'includes/dbh.inc.php';
+      $sql = "SELECT * FROM Books WHERE ISBN='$isbn'";
+      $result = mysqli_query($connect,$sql) or die("Bad Query: $sql");
 
-  <section id="contact">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-7 mx-auto">
-          <h2>Contact us</h2>
-          <p class="lead">Please direct all questions and concerns to our support email 
-          info@dblibrary.com We thank you for all your help and support.</p>
-        </div>
-      </div>
+      $row = mysqli_fetch_assoc($result);
+
+      echo "<h1>{$row['Title']}</h1>";
+      echo "<p class='lead'>{$row['Author']}</p>";
+      echo"<img src='{$row['Photo']}' class='mx-auto d-block' alt='...'>";
+    echo"</div>";
+  echo"</header>";
+
+  echo"<section id='info'>";
+    echo"<div class='container'>";
+      echo"<div class='row align-top'>";
+        echo"<div class='col-lg-8 mx-auto'>";
+          echo"<h2>Book Info</h2>";
+          echo"<p class='lead'>Description</p>";
+          echo"<p>{$row['Descr']}</p>";
+          echo"<p class='lead'>Genre</p>";
+          echo"<p>{$row['Genre']}</p>";
+          echo"<p class='lead'>Date Published</p>";
+          echo"<p>{$row['Year']}</p>";
+          
+        echo"</div>";
+      echo"</div>";
+    echo"</div>";
+    echo"<div class='container text-center'>";
+      echo"<form action='includes/return.inc.php' method='post'>";
+        echo"<input type='hidden' value={$isbn} id='isbn' name='isbn'>";
+        echo"<button type='submit' name='return-submit' class='btn btn-large'>Return Book</button>";
+      echo"</form>";
+      ?>
     </div>
   </section>
-
 
   <!-- Footer -->
   <footer class="py-5 bg-dark">
@@ -113,4 +104,5 @@
   <script src="js/scrolling-nav.js"></script>
 
 </body>
+
 </html>

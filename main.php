@@ -14,7 +14,7 @@
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="css/scrolling-nav.css" rel="stylesheet">
+  <link href="css/main.css" rel="stylesheet">
 
 </head>
 
@@ -38,6 +38,9 @@
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="includes/logout.inc.php">Logout</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -56,7 +59,34 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 mx-auto">
-        <h2>Avaliable books</h2>
+          <?php
+          session_start();
+          if (isset($_GET["genre"])){
+            $genre = $_GET["genre"];
+            echo"<h2>Avaliable {$genre} Books</h2>";
+          }else{
+            echo"<h2>Avaliable Books</h2>";
+          }
+          ?>
+          <div class="btn-group" role="group">
+            <div class="btn-group" role="group">
+              <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Genre
+              </button>
+              <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                <?php
+                require 'includes/dbh.inc.php';
+                $sql = "SELECT Genre FROM Books GROUP BY Genre";
+                $result = mysqli_query($connect,$sql) or die("Bad Query: $sql");
+                                    
+                while($row = mysqli_fetch_assoc($result)){
+                  echo"<a class='dropdown-item' href='main.php?genre={$row['Genre']}'>{$row['Genre']}</a>";
+                }
+                ?>
+                <a class="dropdown-item" href="main.php">All</a>
+              </div>
+            </div>
+          </div>
           <table class="table table-hover">
             <thead>
               <tr>
@@ -71,11 +101,17 @@
 
               <?php //Display Available Books
               require 'includes/dbh.inc.php';
-              $sql = "SELECT * FROM Books WHERE Availability=1";
+              $sql = "";
+              if (isset($_GET["genre"])){
+                $genre = $_GET["genre"];
+                $sql = "SELECT * FROM Books WHERE Availability=1 AND Genre = '$genre'";
+              }else{
+                $sql = "SELECT * FROM Books WHERE Availability=1";
+              }
               $result = mysqli_query($connect,$sql) or die("Bad Query: $sql");
                                   
               while($row = mysqli_fetch_assoc($result)){
-                echo"<tr class='clickable-row' data-href='book.php?isbn={$row['ISBN']}'>";
+                echo"<tr class='clickable-row' data-href='rent_book.php?isbn={$row['ISBN']}'>";
                   echo"<td><img src='{$row['Photo']}' class='small-img'></td>";
                   echo"<td>{$row['Title']}</td>";
                   echo"<td>{$row['Author']}</td>";
@@ -84,14 +120,14 @@
                 echo"</tr>";
               }
               ?>
-
+              <tr></tr>
             </tbody>
           </table>     
         </div>
       </div>
     </div>
     <div class="container text-center">
-      <a class="btn btn-primary btn-large js-scroll-trigger" href="#rentals">View Rentals</a>
+      <a class="btn btn-table btn-large js-scroll-trigger" href="#rentals">View Rentals</a>
     </div>
   </section>
     
@@ -114,15 +150,14 @@
             </thead>
             <tbody>
 
-              <?php //Display Available Books
+              <?php
               require 'includes/dbh.inc.php';
-              session_start();
               $student_id = $_SESSION["StudentID"];
               $sql = "SELECT * FROM Books WHERE ISBN IN (SELECT ISBN FROM Rents WHERE StudentID = $student_id)";
               $result = mysqli_query($connect,$sql) or die("Bad Query: $sql");
                
               while($row = mysqli_fetch_assoc($result)){
-                echo"<tr class='clickable-row' data-href='book.php?isbn={$row['ISBN']}'>";
+                echo"<tr class='clickable-row' data-href='return_book.php?isbn={$row['ISBN']}'>";
                   echo"<td><img src='{$row['Photo']}' class='small-img '></td>";
                   echo"<td>{$row['Title']}</td>";
                   echo"<td>{$row['Author']}</td>";
@@ -131,14 +166,13 @@
                 echo"</tr>";
               }
               ?>
-
             </tbody>
           </table>
         </div>
       </div>
     </div>
     <div class="container text-center">
-      <a class="btn btn-primary btn-large js-scroll-trigger" href="#contact">Contact Us</a>
+      <a class="btn btn-table btn-large js-scroll-trigger" href="#contact">Contact Us</a>
     </div>
   </section>
 
