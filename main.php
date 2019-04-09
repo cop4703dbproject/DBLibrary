@@ -144,8 +144,8 @@
                 <th scope="col">Cover</th>
                 <th scope="col">Title</th>
                 <th scope="col">Author</th>
-                <th scope="col">Year</th>
-                <th scope="col">Genre</th>
+                <th scope="col">Rental Start</th>
+                <th scope="col">Rental End</th>
               </tr>
             </thead>
             <tbody>
@@ -153,7 +153,7 @@
               <?php
               require 'includes/dbh.inc.php';
               $student_id = $_SESSION["StudentID"];
-              $sql = "SELECT * FROM Books WHERE ISBN IN (SELECT ISBN FROM Rents WHERE StudentID = $student_id)";
+              $sql = "SELECT B.Photo, B.Title, B.Author, B.ISBN, R.StudentID, R.Rental_Start, R.Rental_End FROM Books B, Rents R WHERE R.StudentID = $student_id AND B.ISBN = R.ISBN";
               $result = mysqli_query($connect,$sql) or die("Bad Query: $sql");
                
               while($row = mysqli_fetch_assoc($result)){
@@ -161,8 +161,8 @@
                   echo"<td><img src='{$row['Photo']}' class='small-img '></td>";
                   echo"<td>{$row['Title']}</td>";
                   echo"<td>{$row['Author']}</td>";
-                  echo"<td>{$row['Year']}</td>";
-                  echo"<td>{$row['Genre']}</td>";
+                  echo"<td>{$row['Rental_Start']}</td>";
+                  echo"<td>{$row['Rental_End']}</td>";
                 echo"</tr>";
               }
               ?>
